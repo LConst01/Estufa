@@ -17,7 +17,7 @@ class SimuladorEstufa:
         self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.client.on_connect = self.on_connect
 
-    def on_connect(self, client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc, proprieties):
         if rc == 0:
             print(f"Conectado ao broker MQTT")
         else:
@@ -34,7 +34,7 @@ class SimuladorEstufa:
         self.umidade = max(30, min(95, self.umidade))
 
     def publicar(self):
-        self.publicar_dados()
+        self.simular_dados()
 
         self.client.publish(TOPICO_TEMP, f"{self.temperatura:.2f}")
         print(f"Temperatura: {self.temperatura:.2f}ºC")
